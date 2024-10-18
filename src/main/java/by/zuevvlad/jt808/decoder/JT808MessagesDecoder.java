@@ -10,6 +10,8 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public final class JT808MessagesDecoder {
+    private static final int IDENTIFICATION_BYTE_COUNT = 1;
+
     private final List<JT808MessageDecoder<?, ?>> decoders;
 
     public JT808Message<?> decode(ByteBuf buffer) {
@@ -24,7 +26,7 @@ public final class JT808MessagesDecoder {
     }
 
     private ByteBuf trimIdentification(ByteBuf buffer) {
-        return buffer.slice(1, buffer.writerIndex() - 2);
+        return buffer.slice(IDENTIFICATION_BYTE_COUNT, buffer.writerIndex() - 1 - IDENTIFICATION_BYTE_COUNT);
     }
 
     private JT808MessageDecoder<?, ?> findDecoder(short messageId) {
