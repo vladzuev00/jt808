@@ -10,10 +10,17 @@
   <name>jt808</name>
   <url>http://maven.apache.org</url>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.0</version>
+    <relativePath/>
+  </parent>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <netty.version>4.1.68.Final</netty.version>
-    <spring.version>5.3.9</spring.version>
+    <spring.version>6.1.4</spring.version>
     <junit.version>5.11.2</junit.version>
     <scope.version>1.18.10</scope.version>
     <mockito-junit-jupiter.version>5.12.0</mockito-junit-jupiter.version>
@@ -61,6 +68,18 @@
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>${mockito-junit-jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <version>3.3.4</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
     </dependency>
 
   </dependencies>

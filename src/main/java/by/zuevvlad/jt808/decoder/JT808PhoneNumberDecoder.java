@@ -1,7 +1,9 @@
 package by.zuevvlad.jt808.decoder;
 
 import io.netty.buffer.ByteBuf;
+import org.springframework.stereotype.Component;
 
+@Component
 public final class JT808PhoneNumberDecoder {
 
     public String decode(ByteBuf buffer) {
@@ -16,6 +18,6 @@ public final class JT808PhoneNumberDecoder {
             temp.append((aByte & 0xf0) >>> 4);
             temp.append(aByte & 0x0f);
         }
-        return temp.substring(0, 1).equalsIgnoreCase("0") ? temp.substring(1) : temp.toString();
+        return temp.toString();
     }
 }
