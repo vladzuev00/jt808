@@ -38,7 +38,6 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                 Arguments.of(
                         "7e0100003607006195286504fa0000000038363937374e5438303800000000000000000000000000000031393532383635004c42313233343536373839303132333435607e",
                         new JT808RegistrationMessage(
-                                (short) 256,
                                 new BodyProperties(false, false, 0, 54),
                                 "070061952865",
                                 (short) 1274,
@@ -57,7 +56,6 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                 Arguments.of(
                         "7e0102000c07006195286504fc3037303036313935323836354c7e",
                         new JT808AuthenticationMessage(
-                                (short) 258,
                                 new BodyProperties(false, false, 0, 12),
                                 "070061952865",
                                 (short) 1276,
@@ -68,7 +66,6 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                 Arguments.of(
                         "7e000200000072610190040378ff7e",
                         new JT808HeartbeatMessage(
-                                (short) 2,
                                 new BodyProperties(false, false, 0, 0),
                                 "007261019004",
                                 (short) 888,
