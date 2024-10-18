@@ -1,7 +1,7 @@
 package by.zuevvlad.jt808.decoder;
 
-import by.zuevvlad.jt808.model.Jt808RegistrationMessage;
-import by.zuevvlad.jt808.model.Jt808RegistrationMessage.Body;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class Jt808RegistrationMessageDecoderTest {
+public final class JT808RegistrationMessageDecoderTest {
     private final JT808RegistrationMessageDecoder decoder = new JT808RegistrationMessageDecoder(null, null);
 
     @Test
@@ -29,14 +29,14 @@ public final class Jt808RegistrationMessageDecoderTest {
         Body givenBody = new Body((short) 0, (short) 0, "86977", "NT808", "1952865", (byte) 0, "LB123456789012345");
         byte givenCheckCode = 55;
 
-        Jt808RegistrationMessage actual = decoder.createMessage(
+        JT808RegistrationMessage actual = decoder.createMessage(
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
                 givenBody,
                 givenCheckCode
         );
-        Jt808RegistrationMessage expected = new Jt808RegistrationMessage(
+        JT808RegistrationMessage expected = new JT808RegistrationMessage(
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,

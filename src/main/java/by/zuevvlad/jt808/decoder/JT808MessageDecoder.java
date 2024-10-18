@@ -4,14 +4,12 @@ import io.netty.buffer.ByteBuf;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public abstract class JT808MessageDecoder {
+public abstract class JT808MessageDecoder<M> {
     private final short messageId;
 
     public final boolean isAbleDecode(short messageId) {
         return this.messageId == messageId;
     }
 
-    public final M decode(ByteBuf buffer) {
-
-    }
+    public abstract M decode(ByteBuf buffer);
 }

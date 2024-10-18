@@ -1,15 +1,15 @@
 package by.zuevvlad.jt808.decoder;
 
-import by.zuevvlad.jt808.model.Jt808RegistrationMessage;
-import by.zuevvlad.jt808.model.Jt808RegistrationMessage.Body;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.springframework.stereotype.Component;
 
-import static by.zuevvlad.jt808.model.Jt808RegistrationMessage.MESSAGE_ID;
+import static by.zuevvlad.jt808.model.JT808RegistrationMessage.MESSAGE_ID;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
-public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<Body, Jt808RegistrationMessage> {
+public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<Body, JT808RegistrationMessage> {
     private static final int MANUFACTURER_ID_BYTE_COUNT = 5;
     private static final int TERMINAL_MODEL_BYTE_COUNT = 20;
     private static final int TERMINAL_ID_BYTE_COUNT = 7;
@@ -41,12 +41,12 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<B
     }
 
     @Override
-    protected Jt808RegistrationMessage createMessage(BodyProperties bodyProperties,
+    protected JT808RegistrationMessage createMessage(BodyProperties bodyProperties,
                                                      String phoneNumber,
                                                      short serialNumber,
                                                      Body body,
                                                      byte checkCode) {
-        return new Jt808RegistrationMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        return new JT808RegistrationMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
     private short readProvinceId(ByteBuf buffer) {
