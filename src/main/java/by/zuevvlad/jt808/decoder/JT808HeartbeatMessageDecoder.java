@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class JT808HeartbeatMessageDecoder extends JT808MessageDecoder<Void, JT808HeartbeatMessage> {
-    private static final short MESSAGE_ID = 256;
+    private static final short MESSAGE_ID = 2;
 
     public JT808HeartbeatMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                         JT808PhoneNumberDecoder phoneNumberDecoder) {

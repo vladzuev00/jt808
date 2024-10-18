@@ -3,6 +3,7 @@ package by.zuevvlad.jt808.it.decoding;
 import by.zuevvlad.jt808.base.AbstractSpringBootTest;
 import by.zuevvlad.jt808.decoder.JT808MessagesDecoder;
 import by.zuevvlad.jt808.model.JT808AuthenticationMessage;
+import by.zuevvlad.jt808.model.JT808HeartbeatMessage;
 import by.zuevvlad.jt808.model.JT808Message;
 import by.zuevvlad.jt808.model.JT808Message.BodyProperties;
 import by.zuevvlad.jt808.model.JT808RegistrationMessage;
@@ -62,6 +63,17 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                                 (short) 1276,
                                 new JT808AuthenticationMessage.Body("070061952865"),
                                 (byte) 76
+                        )
+                ),
+                Arguments.of(
+                        "7e000200000072610190040378ff7e",
+                        new JT808HeartbeatMessage(
+                                (short) 2,
+                                new BodyProperties(false, false, 0, 0),
+                                "007261019004",
+                                (short) 888,
+                                null,
+                                (byte) 255
                         )
                 )
         );
