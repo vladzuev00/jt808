@@ -10,7 +10,6 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
 public final class JT808AuthenticationMessageDecoder extends JT808MessageDecoder<Body, JT808AuthenticationMessage> {
-    private static final short MESSAGE_ID = 258;
 
     public JT808AuthenticationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                              JT808PhoneNumberDecoder phoneNumberDecoder) {
