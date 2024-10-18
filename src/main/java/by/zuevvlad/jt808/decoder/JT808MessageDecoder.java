@@ -13,9 +13,9 @@ public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
     public final M decode(ByteBuf buffer) {
         BodyProperties bodyProperties = bodyPropertiesDecoder.decode(buffer);
         String phoneNumber = phoneNumberDecoder.decode(buffer);
-        short serialNumber = buffer.readShort();
+        short serialNumber = decodeSerialNumber(buffer);
         B body = decodeBody(buffer);
-        byte checkCode = buffer.readByte();
+        byte checkCode = decodeCheckCode(buffer);
         return createMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
@@ -26,4 +26,12 @@ public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
                                        short serialNumber,
                                        B body,
                                        byte checkCode);
+
+    private short decodeSerialNumber(ByteBuf buffer) {
+        return buffer.readShort();
+    }
+
+    private byte decodeCheckCode(ByteBuf buffer) {
+        return buffer.readByte();
+    }
 }
