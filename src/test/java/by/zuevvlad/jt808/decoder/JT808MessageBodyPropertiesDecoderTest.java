@@ -12,7 +12,7 @@ public final class JT808MessageBodyPropertiesDecoderTest {
     private final JT808MessageBodyPropertiesDecoder decoder = new JT808MessageBodyPropertiesDecoder();
 
     @Test
-    public void bodyPropertiesShouldBeDecoded() {
+    public void propertiesShouldBeDecoded() {
         ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("0036"));
 
         BodyProperties actual = decoder.decode(givenBuffer);
