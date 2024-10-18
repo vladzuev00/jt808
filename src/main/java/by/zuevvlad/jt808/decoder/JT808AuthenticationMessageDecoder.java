@@ -6,6 +6,7 @@ import by.zuevvlad.jt808.model.JT808Message.BodyProperties;
 import io.netty.buffer.ByteBuf;
 import org.springframework.stereotype.Component;
 
+import static by.zuevvlad.jt808.model.JT808AuthenticationMessage.MESSAGE_ID;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
@@ -23,12 +24,11 @@ public final class JT808AuthenticationMessageDecoder extends JT808MessageDecoder
     }
 
     @Override
-    protected JT808AuthenticationMessage createMessage(short messageId,
-                                                       BodyProperties bodyProperties,
+    protected JT808AuthenticationMessage createMessage(BodyProperties bodyProperties,
                                                        String phoneNumber,
                                                        short serialNumber,
                                                        Body body,
                                                        byte checkCode) {
-        return new JT808AuthenticationMessage(messageId, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        return new JT808AuthenticationMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 }
