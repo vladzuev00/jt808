@@ -10,6 +10,10 @@ public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
     private final JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder;
     private final JT808PhoneNumberDecoder phoneNumberDecoder;
 
+    public final boolean isAbleDecode(short messageId) {
+        return true;
+    }
+
     public final M decode(ByteBuf buffer) {
         BodyProperties bodyProperties = bodyPropertiesDecoder.decode(buffer);
         String phoneNumber = phoneNumberDecoder.decode(buffer);
