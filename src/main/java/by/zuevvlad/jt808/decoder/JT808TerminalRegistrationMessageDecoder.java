@@ -10,15 +10,15 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
 public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageDecoder<Body, JT808TerminalRegistrationMessage> {
+    private static final short MESSAGE_ID = 256;
     private static final int MANUFACTURER_ID_BYTE_COUNT = 5;
     private static final int TERMINAL_MODEL_BYTE_COUNT = 20;
     private static final int TERMINAL_ID_BYTE_COUNT = 7;
     private static final int VEHICLE_IDENTIFICATION_BYTE_COUNT = 17;
-    static final short MESSAGE_ID = 256;
 
     public JT808TerminalRegistrationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                                    JT808PhoneNumberDecoder phoneNumberDecoder) {
-        super(bodyPropertiesDecoder, phoneNumberDecoder);
+        super(MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
     }
 
     @Override
@@ -42,13 +42,14 @@ public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageD
     }
 
     @Override
-    protected JT808TerminalRegistrationMessage createMessage(BodyProperties bodyProperties,
+    protected JT808TerminalRegistrationMessage createMessage(short messageId,
+                                                             BodyProperties bodyProperties,
                                                              String phoneNumber,
                                                              short serialNumber,
                                                              Body body,
                                                              byte checkCode) {
         return new JT808TerminalRegistrationMessage(
-                MESSAGE_ID,
+                messageId,
                 bodyProperties,
                 phoneNumber,
                 serialNumber,

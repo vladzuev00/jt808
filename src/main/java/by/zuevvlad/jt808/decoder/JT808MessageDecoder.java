@@ -7,11 +7,12 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
+    private final short messageId;
     private final JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder;
     private final JT808PhoneNumberDecoder phoneNumberDecoder;
 
     public final boolean isAbleDecode(short messageId) {
-        return true;
+        return this.messageId == messageId;
     }
 
     public final M decode(ByteBuf buffer) {
@@ -20,12 +21,13 @@ public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
         short serialNumber = decodeSerialNumber(buffer);
         B body = decodeBody(buffer);
         byte checkCode = decodeCheckCode(buffer);
-        return createMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        return createMessage(messageId, bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
     protected abstract B decodeBody(ByteBuf buffer);
 
-    protected abstract M createMessage(BodyProperties bodyProperties,
+    protected abstract M createMessage(short messageId,
+                                       BodyProperties bodyProperties,
                                        String phoneNumber,
                                        short serialNumber,
                                        B body,

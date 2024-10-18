@@ -6,7 +6,6 @@ import by.zuevvlad.jt808.model.JT808TerminalRegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 
-import static by.zuevvlad.jt808.decoder.JT808TerminalRegistrationMessageDecoder.MESSAGE_ID;
 import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +24,7 @@ public final class JT808TerminalRegistrationMessageDecoderTest {
 
     @Test
     public void messageShouldBeCreated() {
+        short givenMessageId = 256;
         BodyProperties givenBodyProperties = new BodyProperties(true, false, 10, 20);
         String givenPhoneNumber = "375446932345";
         short givenSerialNumber = 234;
@@ -32,6 +32,7 @@ public final class JT808TerminalRegistrationMessageDecoderTest {
         byte givenCheckCode = 55;
 
         JT808TerminalRegistrationMessage actual = decoder.createMessage(
+                givenMessageId,
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
@@ -39,7 +40,7 @@ public final class JT808TerminalRegistrationMessageDecoderTest {
                 givenCheckCode
         );
         JT808TerminalRegistrationMessage expected = new JT808TerminalRegistrationMessage(
-                MESSAGE_ID,
+                givenMessageId,
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
