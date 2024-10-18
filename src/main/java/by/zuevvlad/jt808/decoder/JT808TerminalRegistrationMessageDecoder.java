@@ -14,6 +14,7 @@ public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageD
     private static final int TERMINAL_MODEL_BYTE_COUNT = 20;
     private static final int TERMINAL_ID_BYTE_COUNT = 7;
     private static final int VEHICLE_IDENTIFICATION_BYTE_COUNT = 17;
+    static final short MESSAGE_ID = 256;
 
     public JT808TerminalRegistrationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                                    JT808PhoneNumberDecoder phoneNumberDecoder) {
@@ -46,7 +47,14 @@ public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageD
                                                              short serialNumber,
                                                              Body body,
                                                              byte checkCode) {
-        return new JT808TerminalRegistrationMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        return new JT808TerminalRegistrationMessage(
+                MESSAGE_ID,
+                bodyProperties,
+                phoneNumber,
+                serialNumber,
+                body,
+                checkCode
+        );
     }
 
     private short readProvinceId(ByteBuf buffer) {

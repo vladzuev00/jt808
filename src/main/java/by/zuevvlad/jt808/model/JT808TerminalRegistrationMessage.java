@@ -3,14 +3,14 @@ package by.zuevvlad.jt808.model;
 import lombok.Value;
 
 public final class JT808TerminalRegistrationMessage extends JT808Message<JT808TerminalRegistrationMessage.Body> {
-    private static final short ID = 256;
 
-    public JT808TerminalRegistrationMessage(BodyProperties bodyProperties,
+    public JT808TerminalRegistrationMessage(short id,
+                                            BodyProperties bodyProperties,
                                             String phoneNumber,
                                             short serialNumber,
                                             Body body,
                                             byte checkCode) {
-        super(ID, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        super(id, bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
     @Value

@@ -6,6 +6,7 @@ import by.zuevvlad.jt808.model.JT808TerminalRegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 
+import static by.zuevvlad.jt808.decoder.JT808TerminalRegistrationMessageDecoder.MESSAGE_ID;
 import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,6 +39,7 @@ public final class JT808TerminalRegistrationMessageDecoderTest {
                 givenCheckCode
         );
         JT808TerminalRegistrationMessage expected = new JT808TerminalRegistrationMessage(
+                MESSAGE_ID,
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
