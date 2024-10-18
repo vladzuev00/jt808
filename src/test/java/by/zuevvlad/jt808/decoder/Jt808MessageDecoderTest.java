@@ -1,7 +1,5 @@
 package by.zuevvlad.jt808.decoder;
 
-import by.zuevvlad.jt808.model.JT808Message;
-import by.zuevvlad.jt808.model.JT808Message.BodyProperties;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,7 @@ import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public final class JT808MessageDecoderTest {
+public final class Jt808MessageDecoderTest {
 
     @Mock
     private JT808MessageBodyPropertiesDecoder mockedBodyPropertiesDecoder;
@@ -33,7 +31,7 @@ public final class JT808MessageDecoderTest {
 
     @Test
     public void decoderShouldBeAbleToDecodeBuffer() {
-        assertTrue(messageDecoder.isAbleDecode(TestJT808Message.MESSAGE_ID));
+        assertTrue(messageDecoder.isAbleDecode(TestJt808Message.MESSAGE_ID));
     }
 
     @Test
@@ -53,8 +51,8 @@ public final class JT808MessageDecoderTest {
         String givenPhoneNumber = "375443434422";
         when(mockedPhoneNumberDecoder.decode(same(givenBuffer))).thenReturn(givenPhoneNumber);
 
-        TestJT808Message actual = messageDecoder.decode(givenBuffer);
-        TestJT808Message expected = new TestJT808Message(
+        TestJt808Message actual = messageDecoder.decode(givenBuffer);
+        TestJt808Message expected = new TestJt808Message(
                 givenBodyProperties,
                 givenPhoneNumber,
                 (short) 1274,
@@ -64,10 +62,10 @@ public final class JT808MessageDecoderTest {
         assertEquals(expected, actual);
     }
 
-    private static final class TestJT808Message extends JT808Message<Short> {
+    private static final class TestJt808Message {
         public static final short MESSAGE_ID = 255;
 
-        public TestJT808Message(BodyProperties bodyProperties,
+        public TestJt808Message(BodyProperties bodyProperties,
                                 String phoneNumber,
                                 short serialNumber,
                                 Short body,
@@ -76,11 +74,11 @@ public final class JT808MessageDecoderTest {
         }
     }
 
-    private static final class TestJT808MessageDecoder extends JT808MessageDecoder<Short, TestJT808Message> {
+    private static final class TestJT808MessageDecoder extends JT808MessageDecoder<Short, TestJt808Message> {
 
         public TestJT808MessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                        JT808PhoneNumberDecoder phoneNumberDecoder) {
-            super(TestJT808Message.MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
+            super(TestJt808Message.MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
         }
 
         @Override
@@ -89,12 +87,12 @@ public final class JT808MessageDecoderTest {
         }
 
         @Override
-        protected TestJT808Message createMessage(BodyProperties bodyProperties,
+        protected TestJt808Message createMessage(BodyProperties bodyProperties,
                                                  String phoneNumber,
                                                  short serialNumber,
                                                  Short body,
                                                  byte checkCode) {
-            return new TestJT808Message(bodyProperties, phoneNumber, serialNumber, body, checkCode);
+            return new TestJt808Message(bodyProperties, phoneNumber, serialNumber, body, checkCode);
         }
     }
 }
