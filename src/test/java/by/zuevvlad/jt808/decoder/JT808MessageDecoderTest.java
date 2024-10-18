@@ -33,7 +33,7 @@ public final class JT808MessageDecoderTest {
 
     @Test
     public void decoderShouldBeAbleToDecodeBuffer() {
-        assertTrue(messageDecoder.isAbleDecode(TestJT808MessageDecoder.MESSAGE_ID));
+        assertTrue(messageDecoder.isAbleDecode(TestJT808Message.MESSAGE_ID));
     }
 
     @Test
@@ -55,7 +55,6 @@ public final class JT808MessageDecoderTest {
 
         TestJT808Message actual = messageDecoder.decode(givenBuffer);
         TestJT808Message expected = new TestJT808Message(
-                TestJT808MessageDecoder.MESSAGE_ID,
                 givenBodyProperties,
                 givenPhoneNumber,
                 (short) 1274,
@@ -66,23 +65,22 @@ public final class JT808MessageDecoderTest {
     }
 
     private static final class TestJT808Message extends JT808Message<Short> {
+        public static final short MESSAGE_ID = 255;
 
-        public TestJT808Message(short messageId,
-                                BodyProperties bodyProperties,
+        public TestJT808Message(BodyProperties bodyProperties,
                                 String phoneNumber,
                                 short serialNumber,
                                 Short body,
                                 byte checkCode) {
-            super(messageId, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+            super(MESSAGE_ID, bodyProperties, phoneNumber, serialNumber, body, checkCode);
         }
     }
 
     private static final class TestJT808MessageDecoder extends JT808MessageDecoder<Short, TestJT808Message> {
-        private static final short MESSAGE_ID = 255;
 
         public TestJT808MessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
                                        JT808PhoneNumberDecoder phoneNumberDecoder) {
-            super(MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
+            super(TestJT808Message.MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
         }
 
         @Override
@@ -91,13 +89,12 @@ public final class JT808MessageDecoderTest {
         }
 
         @Override
-        protected TestJT808Message createMessage(short messageId,
-                                                 BodyProperties bodyProperties,
+        protected TestJT808Message createMessage(BodyProperties bodyProperties,
                                                  String phoneNumber,
                                                  short serialNumber,
                                                  Short body,
                                                  byte checkCode) {
-            return new TestJT808Message(messageId, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+            return new TestJT808Message(bodyProperties, phoneNumber, serialNumber, body, checkCode);
         }
     }
 }

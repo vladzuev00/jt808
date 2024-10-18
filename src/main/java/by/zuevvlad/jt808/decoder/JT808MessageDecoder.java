@@ -21,13 +21,12 @@ public abstract class JT808MessageDecoder<B, M extends JT808Message<B>> {
         short serialNumber = decodeSerialNumber(buffer);
         B body = decodeBody(buffer);
         byte checkCode = decodeCheckCode(buffer);
-        return createMessage(messageId, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        return createMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
     protected abstract B decodeBody(ByteBuf buffer);
 
-    protected abstract M createMessage(short messageId,
-                                       BodyProperties bodyProperties,
+    protected abstract M createMessage(BodyProperties bodyProperties,
                                        String phoneNumber,
                                        short serialNumber,
                                        B body,
