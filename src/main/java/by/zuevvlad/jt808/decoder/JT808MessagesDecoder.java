@@ -11,9 +11,14 @@ public final class JT808MessagesDecoder {
     private final List<JT808MessageDecoder<?, ?>> decoders;
 
     public JT808Message<?> decode(ByteBuf buffer) {
-        ByteBuf trimmedBuffer = trimIdentification(buffer);
-        short messageId = trimmedBuffer.readShort();
-        return findDecoder(messageId).decode(buffer);
+        buffer.retain();
+        try {
+            ByteBuf trimmedBuffer = trimIdentification(buffer);
+            short messageId = trimmedBuffer.readShort();
+            return findDecoder(messageId).decode(buffer);
+        } finally {
+            buffer.release();
+        }
     }
 
     private ByteBuf trimIdentification(ByteBuf buffer) {
