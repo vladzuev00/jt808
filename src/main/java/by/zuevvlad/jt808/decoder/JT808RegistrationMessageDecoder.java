@@ -5,20 +5,10 @@ import by.zuevvlad.jt808.model.JT808RegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.springframework.stereotype.Component;
 
-import static by.zuevvlad.jt808.model.JT808RegistrationMessage.MESSAGE_ID;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
-public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<Body, JT808RegistrationMessage> {
-    private static final int MANUFACTURER_ID_BYTE_COUNT = 5;
-    private static final int TERMINAL_MODEL_BYTE_COUNT = 20;
-    private static final int TERMINAL_ID_BYTE_COUNT = 7;
-    private static final int VEHICLE_IDENTIFICATION_BYTE_COUNT = 17;
-
-    public JT808RegistrationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
-                                           JT808PhoneNumberDecoder phoneNumberDecoder) {
-        super(MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
-    }
+public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<JT808RegistrationMessage> {
 
     @Override
     protected Body decodeBody(ByteBuf buffer) {
@@ -79,5 +69,11 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<B
 
     private String readString(ByteBuf buffer, int byteCount) {
         return buffer.readCharSequence(byteCount, US_ASCII).toString();
+    }
+
+    @Override
+    public JT808RegistrationMessage decode(ByteBuf buffer) {
+        buffer.skipBytes(2);
+        return null;
     }
 }
