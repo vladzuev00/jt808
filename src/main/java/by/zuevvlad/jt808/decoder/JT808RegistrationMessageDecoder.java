@@ -42,20 +42,12 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<B
     }
 
     @Override
-    protected JT808RegistrationMessage createMessage(short messageId,
-                                                     BodyProperties bodyProperties,
+    protected JT808RegistrationMessage createMessage(BodyProperties bodyProperties,
                                                      String phoneNumber,
                                                      short serialNumber,
                                                      Body body,
                                                      byte checkCode) {
-        return new JT808RegistrationMessage(
-                messageId,
-                bodyProperties,
-                phoneNumber,
-                serialNumber,
-                body,
-                checkCode
-        );
+        return new JT808RegistrationMessage(bodyProperties, phoneNumber, serialNumber, body, checkCode);
     }
 
     private short readProvinceId(ByteBuf buffer) {

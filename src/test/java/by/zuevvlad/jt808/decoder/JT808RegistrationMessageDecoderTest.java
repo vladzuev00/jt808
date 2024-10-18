@@ -24,7 +24,6 @@ public final class JT808RegistrationMessageDecoderTest {
 
     @Test
     public void messageShouldBeCreated() {
-        short givenMessageId = 256;
         BodyProperties givenBodyProperties = new BodyProperties(true, false, 10, 20);
         String givenPhoneNumber = "375446932345";
         short givenSerialNumber = 234;
@@ -32,7 +31,6 @@ public final class JT808RegistrationMessageDecoderTest {
         byte givenCheckCode = 55;
 
         JT808RegistrationMessage actual = decoder.createMessage(
-                givenMessageId,
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
@@ -40,7 +38,6 @@ public final class JT808RegistrationMessageDecoderTest {
                 givenCheckCode
         );
         JT808RegistrationMessage expected = new JT808RegistrationMessage(
-                givenMessageId,
                 givenBodyProperties,
                 givenPhoneNumber,
                 givenSerialNumber,
