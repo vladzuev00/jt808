@@ -5,7 +5,7 @@ import by.zuevvlad.jt808.decoder.JT808MessagesDecoder;
 import by.zuevvlad.jt808.model.JT808AuthenticationMessage;
 import by.zuevvlad.jt808.model.JT808Message;
 import by.zuevvlad.jt808.model.JT808Message.BodyProperties;
-import by.zuevvlad.jt808.model.JT808TerminalRegistrationMessage;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -36,12 +36,12 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
         return Stream.of(
                 Arguments.of(
                         "7e0100003607006195286504fa0000000038363937374e5438303800000000000000000000000000000031393532383635004c42313233343536373839303132333435607e",
-                        new JT808TerminalRegistrationMessage(
+                        new JT808RegistrationMessage(
                                 (short) 256,
                                 new BodyProperties(false, false, 0, 54),
                                 "070061952865",
                                 (short) 1274,
-                                new JT808TerminalRegistrationMessage.Body(
+                                new JT808RegistrationMessage.Body(
                                         (short) 0,
                                         (short) 0,
                                         "86977",

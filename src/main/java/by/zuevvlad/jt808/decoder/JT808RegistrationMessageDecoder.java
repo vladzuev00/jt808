@@ -1,23 +1,23 @@
 package by.zuevvlad.jt808.decoder;
 
 import by.zuevvlad.jt808.model.JT808Message.BodyProperties;
-import by.zuevvlad.jt808.model.JT808TerminalRegistrationMessage;
-import by.zuevvlad.jt808.model.JT808TerminalRegistrationMessage.Body;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage;
+import by.zuevvlad.jt808.model.JT808RegistrationMessage.Body;
 import io.netty.buffer.ByteBuf;
 import org.springframework.stereotype.Component;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 @Component
-public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageDecoder<Body, JT808TerminalRegistrationMessage> {
+public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<Body, JT808RegistrationMessage> {
     private static final short MESSAGE_ID = 256;
     private static final int MANUFACTURER_ID_BYTE_COUNT = 5;
     private static final int TERMINAL_MODEL_BYTE_COUNT = 20;
     private static final int TERMINAL_ID_BYTE_COUNT = 7;
     private static final int VEHICLE_IDENTIFICATION_BYTE_COUNT = 17;
 
-    public JT808TerminalRegistrationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
-                                                   JT808PhoneNumberDecoder phoneNumberDecoder) {
+    public JT808RegistrationMessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
+                                           JT808PhoneNumberDecoder phoneNumberDecoder) {
         super(MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
     }
 
@@ -42,13 +42,13 @@ public final class JT808TerminalRegistrationMessageDecoder extends JT808MessageD
     }
 
     @Override
-    protected JT808TerminalRegistrationMessage createMessage(short messageId,
-                                                             BodyProperties bodyProperties,
-                                                             String phoneNumber,
-                                                             short serialNumber,
-                                                             Body body,
-                                                             byte checkCode) {
-        return new JT808TerminalRegistrationMessage(
+    protected JT808RegistrationMessage createMessage(short messageId,
+                                                     BodyProperties bodyProperties,
+                                                     String phoneNumber,
+                                                     short serialNumber,
+                                                     Body body,
+                                                     byte checkCode) {
+        return new JT808RegistrationMessage(
                 messageId,
                 bodyProperties,
                 phoneNumber,
