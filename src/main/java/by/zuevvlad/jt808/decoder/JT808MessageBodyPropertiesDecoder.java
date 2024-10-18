@@ -9,26 +9,27 @@ public final class JT808MessageBodyPropertiesDecoder {
 
     public BodyProperties decode(ByteBuf buffer) {
         short value = buffer.readShort();
-        boolean reversed = decodeReversed(value);
-        boolean containSubpackage = decodeContainSubpackage(value);
-        int encryptionType = decodeEncryptionType(value);
-        int length = decodeLength(value);
-        return new BodyProperties(reversed, containSubpackage, encryptionType, length);
+        return new BodyProperties(
+                isReversed(value),
+                isContainSubpackage(value),
+                getEncryptionType(value),
+                getLength(value)
+        );
     }
 
-    private boolean decodeReversed(short value) {
+    private boolean isReversed(short value) {
         return ((value & 0xc000) >> 14) == 1;
     }
 
-    private boolean decodeContainSubpackage(short value) {
+    private boolean isContainSubpackage(short value) {
         return ((value & 0x2000) >> 13) == 1;
     }
 
-    private int decodeEncryptionType(short value) {
+    private int getEncryptionType(short value) {
         return (value & 0x1c00) >> 10;
     }
 
-    private int decodeLength(short value) {
+    private int getLength(short value) {
         return value & 0x3ff;
     }
 }
