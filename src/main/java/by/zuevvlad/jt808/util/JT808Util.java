@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 public class JT808Util {
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm::ss");
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static String decodePhoneNumber(ByteBuf buffer) {
         byte[] bytes = new byte[6];
@@ -36,6 +36,42 @@ public class JT808Util {
     }
 
     public static Instant decodeDateTime(ByteBuf buffer) {
-        return LocalDateTime.parse(buffer.readCharSequence(6, US_ASCII).toString(), DATE_FORMAT).toInstant(ZoneOffset.UTC);
+        byte[] bytes = new byte[6];
+        buffer.readBytes(bytes);
+        return LocalDateTime.parse(toBcdTimeString(bytes), DATE_FORMAT).toInstant(ZoneOffset.UTC);
+    }
+
+    public static String toBcdTimeString(byte[] bs) {
+        if (bs.length != 6 && bs.length != 7) {
+            return "0000-00-00 00:00:00";
+        }
+        StringBuffer sb = new StringBuffer();
+        int i = 0;
+        if (bs.length == 6) {
+            sb.append("20");
+        }else{
+            sb.append(BCDtoString(bs[i++]));
+        }
+        sb.append(BCDtoString(bs[i++]));
+        sb.append("-").append(BCDtoString(bs[i++]));
+        sb.append("-").append(BCDtoString(bs[i++]));
+        sb.append(" ").append(BCDtoString(bs[i++]));
+        sb.append(":").append(BCDtoString(bs[i++]));
+        sb.append(":").append(BCDtoString(bs[i]));
+        return sb.toString();
+    }
+
+    public static String BCDtoString(byte bcd) {
+        StringBuffer sb = new StringBuffer();
+
+        byte high = (byte) (bcd & 0xf0);
+        high >>>= (byte) 4;
+        high = (byte) (high & 0x0f);
+        byte low = (byte) (bcd & 0x0f);
+
+        sb.append(high);
+        sb.append(low);
+
+        return sb.toString();
     }
 }

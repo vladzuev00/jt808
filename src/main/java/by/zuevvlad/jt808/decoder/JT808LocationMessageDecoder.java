@@ -13,7 +13,7 @@ import static by.zuevvlad.jt808.util.JT808Util.decodeGpsCoordinate;
 public final class JT808LocationMessageDecoder extends JT808MessageDecoder<JT808LocationMessage> {
     private static final short MESSAGE_ID = 512;
     private static final int ALARM_SIGN_BYTE_COUNT = 4;
-    private static final int STATUS_BYTE_COUNT = 16;
+    private static final int STATUS_BYTE_COUNT = 4;
 
     public JT808LocationMessageDecoder() {
         super(MESSAGE_ID);
@@ -24,7 +24,7 @@ public final class JT808LocationMessageDecoder extends JT808MessageDecoder<JT808
         skipAlarmSign(buffer);
         skipStatus(buffer);
         float latitude = decodeGpsCoordinate(buffer);
-        float longitude = decodeGpsCoordinate(buffer);
+        float longitude = decodeGpsCoordinate(buffer) / 10;
         short altitude = decodeAltitude(buffer);
         short speed = decodeSpeed(buffer);
         short course = decodeCourse(buffer);
