@@ -21,7 +21,7 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<J
     protected JT808RegistrationMessage decodeInternal(ByteBuf buffer, String phoneNumber) {
         skipProvinceId(buffer);
         skipCityId(buffer);
-        String manufacturerId = decodeString(buffer, MANUFACTURER_ID_BYTE_COUNT);
+        String manufacturerId = decodeManufacturerId(buffer);
         return new JT808RegistrationMessage(phoneNumber, manufacturerId);
     }
 
@@ -31,5 +31,9 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<J
 
     private void skipCityId(ByteBuf buffer) {
         buffer.skipBytes(CITY_ID_BYTE_COUNT);
+    }
+
+    private String decodeManufacturerId(ByteBuf buffer) {
+        return decodeString(buffer, MANUFACTURER_ID_BYTE_COUNT);
     }
 }
