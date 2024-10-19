@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.mockStatic;
 
-public final class Jt808MessageDecoderTest {
+public final class JT808MessageDecoderTest {
     private final TestJT808MessageDecoder decoder = new TestJT808MessageDecoder();
 
     @Test
