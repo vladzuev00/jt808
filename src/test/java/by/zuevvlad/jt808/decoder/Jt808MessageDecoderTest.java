@@ -1,98 +1,66 @@
 package by.zuevvlad.jt808.decoder;
 
+import by.zuevvlad.jt808.util.JT808Util;
 import io.netty.buffer.ByteBuf;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.Value;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockedStatic;
 
+import static by.zuevvlad.jt808.util.JT808Util.decodePhoneNumber;
 import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.same;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mockStatic;
 
-@ExtendWith(MockitoExtension.class)
 public final class Jt808MessageDecoderTest {
-
-    @Mock
-    private JT808MessageBodyPropertiesDecoder mockedBodyPropertiesDecoder;
-
-    @Mock
-    private JT808PhoneNumberDecoder mockedPhoneNumberDecoder;
-
-    private TestJT808MessageDecoder messageDecoder;
-
-    @BeforeEach
-    public void initializeMessageDecoder() {
-        messageDecoder = new TestJT808MessageDecoder(mockedBodyPropertiesDecoder, mockedPhoneNumberDecoder);
-    }
+    private final TestJT808MessageDecoder decoder = new TestJT808MessageDecoder();
 
     @Test
     public void decoderShouldBeAbleToDecodeBuffer() {
-        assertTrue(messageDecoder.isAbleDecode(TestJt808Message.MESSAGE_ID));
+        assertTrue(decoder.isAbleDecode(TestJT808MessageDecoder.MESSAGE_ID));
     }
 
     @Test
     public void decoderShouldNotBeAbleToDecodeBuffer() {
-        short givenMessageId = 254;
+        short givenMessageId = TestJT808MessageDecoder.MESSAGE_ID - 1;
 
-        assertFalse(messageDecoder.isAbleDecode(givenMessageId));
+        assertFalse(decoder.isAbleDecode(givenMessageId));
     }
 
     @Test
     public void messageShouldBeDecoded() {
-        ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("04fa003660"));
+        try (MockedStatic<JT808Util> mockedJT808Util = mockStatic(JT808Util.class)) {
+            ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("003604fa003760"));
 
-        BodyProperties givenBodyProperties = new BodyProperties(true, false, 10, 20);
-        when(mockedBodyPropertiesDecoder.decode(same(givenBuffer))).thenReturn(givenBodyProperties);
+            String givenPhoneNumber = "070061952865";
+            mockedJT808Util.when(() -> decodePhoneNumber(same(givenBuffer))).thenReturn(givenPhoneNumber);
 
-        String givenPhoneNumber = "375443434422";
-        when(mockedPhoneNumberDecoder.decode(same(givenBuffer))).thenReturn(givenPhoneNumber);
+            TestJT808Message actual = decoder.decode(givenBuffer);
+            TestJT808Message expected = new TestJT808Message(givenPhoneNumber, (short) 55);
+            assertEquals(expected, actual);
 
-        TestJt808Message actual = messageDecoder.decode(givenBuffer);
-        TestJt808Message expected = new TestJt808Message(
-                givenBodyProperties,
-                givenPhoneNumber,
-                (short) 1274,
-                (short) 54,
-                (byte) 96
-        );
-        assertEquals(expected, actual);
-    }
-
-    private static final class TestJt808Message {
-        public static final short MESSAGE_ID = 255;
-
-        public TestJt808Message(BodyProperties bodyProperties,
-                                String phoneNumber,
-                                short serialNumber,
-                                Short body,
-                                byte checkCode) {
-            super(MESSAGE_ID, bodyProperties, phoneNumber, serialNumber, body, checkCode);
+            assertEquals(0, givenBuffer.readableBytes());
         }
     }
 
-    private static final class TestJT808MessageDecoder extends JT808MessageDecoder<Short, TestJt808Message> {
+    @Value
+    private static class TestJT808Message {
+        String phoneNumber;
+        short value;
+    }
 
-        public TestJT808MessageDecoder(JT808MessageBodyPropertiesDecoder bodyPropertiesDecoder,
-                                       JT808PhoneNumberDecoder phoneNumberDecoder) {
-            super(TestJt808Message.MESSAGE_ID, bodyPropertiesDecoder, phoneNumberDecoder);
+    private static final class TestJT808MessageDecoder extends JT808MessageDecoder<TestJT808Message> {
+        private static final short MESSAGE_ID = 255;
+
+        public TestJT808MessageDecoder() {
+            super(MESSAGE_ID);
         }
 
         @Override
-        protected Short decodeBody(ByteBuf buffer) {
-            return buffer.readShort();
-        }
-
-        @Override
-        protected TestJt808Message createMessage(BodyProperties bodyProperties,
-                                                 String phoneNumber,
-                                                 short serialNumber,
-                                                 Short body,
-                                                 byte checkCode) {
-            return new TestJt808Message(bodyProperties, phoneNumber, serialNumber, body, checkCode);
+        protected TestJT808Message decodeInternal(ByteBuf buffer, String phoneNumber) {
+            short value = buffer.readShort();
+            return new TestJT808Message(phoneNumber, value);
         }
     }
 }
