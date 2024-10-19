@@ -31,8 +31,12 @@ public class JT808Util {
         return temp.toString();
     }
 
-    public static float decodeGpsCoordinate(ByteBuf buffer) {
-        return buffer.readUnsignedInt() * 1.0F / 1000000;
+    public static float decodeLatitude(ByteBuf buffer) {
+        return buffer.readUnsignedInt() / 1000000F;
+    }
+
+    public static float decodeLongitude(ByteBuf buffer) {
+        return buffer.readUnsignedInt() / 10000000F;
     }
 
     public static Instant decodeDateTime(ByteBuf buffer) {
@@ -49,7 +53,7 @@ public class JT808Util {
         int i = 0;
         if (bs.length == 6) {
             sb.append("20");
-        }else{
+        } else {
             sb.append(BCDtoString(bs[i++]));
         }
         sb.append(BCDtoString(bs[i++]));
