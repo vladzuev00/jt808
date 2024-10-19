@@ -4,5 +4,6 @@ import lombok.Value;
 
 @Value
 public class JT808RegistrationMessage {
-    String imei;
+    String phoneNumber;
+    String manufacturerId;
 }
