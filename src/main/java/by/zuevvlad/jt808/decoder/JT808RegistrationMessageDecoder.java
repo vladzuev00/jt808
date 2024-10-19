@@ -10,8 +10,6 @@ import static by.zuevvlad.jt808.util.JT808Util.decodeString;
 public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<JT808RegistrationMessage> {
     private static final short MESSAGE_ID = 256;
     private static final int MANUFACTURER_ID_BYTE_COUNT = 5;
-    private static final int PROVINCE_ID_BYTE_COUNT = 2;
-    private static final int CITY_ID_BYTE_COUNT = 2;
 
     public JT808RegistrationMessageDecoder() {
         super(MESSAGE_ID);
@@ -26,11 +24,11 @@ public final class JT808RegistrationMessageDecoder extends JT808MessageDecoder<J
     }
 
     private void skipProvinceId(ByteBuf buffer) {
-        buffer.skipBytes(PROVINCE_ID_BYTE_COUNT);
+        buffer.skipBytes(Short.BYTES);
     }
 
     private void skipCityId(ByteBuf buffer) {
-        buffer.skipBytes(CITY_ID_BYTE_COUNT);
+        buffer.skipBytes(Short.BYTES);
     }
 
     private String decodeManufacturerId(ByteBuf buffer) {
