@@ -2,9 +2,15 @@ package by.zuevvlad.jt808.util;
 
 import io.netty.buffer.ByteBuf;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
 public class JT808Util {
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm::ss");
 
     public static String decodePhoneNumber(ByteBuf buffer) {
         byte[] bytes = new byte[6];
@@ -23,5 +29,13 @@ public class JT808Util {
             temp.append(aByte & 0x0f);
         }
         return temp.toString();
+    }
+
+    public static float decodeGpsCoordinate(ByteBuf buffer) {
+        return buffer.readUnsignedInt() * 1.0F / 1000000;
+    }
+
+    public static Instant decodeDateTime(ByteBuf buffer) {
+        return LocalDateTime.parse(buffer.readCharSequence(6, US_ASCII).toString(), DATE_FORMAT).toInstant(ZoneOffset.UTC);
     }
 }

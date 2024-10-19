@@ -9,7 +9,7 @@ public class JT808LocationMessage {
     Instant dateTime;
     float latitude;
     float longitude;
-    int altitude;
-    int speed;
-    int course;
+    short altitude;
+    short speed;
+    short course;
 }
