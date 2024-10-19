@@ -62,7 +62,7 @@ public class JT808Util {
     }
 
     public static String BCDtoString(byte bcd) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         byte high = (byte) (bcd & 0xf0);
         high >>>= (byte) 4;

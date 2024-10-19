@@ -7,9 +7,6 @@ import static by.zuevvlad.jt808.util.JT808Util.decodePhoneNumber;
 
 @RequiredArgsConstructor
 public abstract class JT808MessageDecoder<M> {
-    private static final int BODY_PROPERTIES_BYTES = 2;
-    private static final int SERIAL_NUMBER_BYTES = 2;
-
     private final short messageId;
 
     public final boolean isAbleDecode(short messageId) {
@@ -28,11 +25,11 @@ public abstract class JT808MessageDecoder<M> {
     protected abstract M decodeInternal(ByteBuf buffer, String phoneNumber);
 
     private void skipBodyProperties(ByteBuf buffer) {
-        buffer.skipBytes(BODY_PROPERTIES_BYTES);
+        buffer.skipBytes(Short.BYTES);
     }
 
     private void skipSerialNumber(ByteBuf buffer) {
-        buffer.skipBytes(SERIAL_NUMBER_BYTES);
+        buffer.skipBytes(Short.BYTES);
     }
 
     private void skipRemaining(ByteBuf buffer) {
