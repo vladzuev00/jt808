@@ -2,12 +2,18 @@ package by.zuevvlad.jt808.util;
 
 import io.netty.buffer.ByteBuf;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
+
 public class JT808Util {
 
     public static String decodePhoneNumber(ByteBuf buffer) {
         byte[] bytes = new byte[6];
         buffer.readBytes(bytes);
         return bcd2String(bytes);
+    }
+
+    public static String decodeString(ByteBuf buffer, int byteCount) {
+        return buffer.readCharSequence(byteCount, US_ASCII).toString();
     }
 
     public static String bcd2String(byte[] bytes) {

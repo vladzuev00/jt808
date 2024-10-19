@@ -31,7 +31,7 @@ public final class Jt808MessageDecoderTest {
     @Test
     public void messageShouldBeDecoded() {
         try (MockedStatic<JT808Util> mockedJT808Util = mockStatic(JT808Util.class)) {
-            ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("003604fa003760"));
+            ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("003604fa0037603760"));
 
             String givenPhoneNumber = "070061952865";
             mockedJT808Util.when(() -> decodePhoneNumber(same(givenBuffer))).thenReturn(givenPhoneNumber);

@@ -9,7 +9,6 @@ import static by.zuevvlad.jt808.util.JT808Util.decodePhoneNumber;
 public abstract class JT808MessageDecoder<M> {
     private static final int BODY_PROPERTIES_BYTES = 2;
     private static final int SERIAL_NUMBER_BYTES = 2;
-    private static final int CHECK_CODE_BYTES = 1;
 
     private final short messageId;
 
@@ -22,7 +21,7 @@ public abstract class JT808MessageDecoder<M> {
         String phoneNumber = decodePhoneNumber(buffer);
         skipSerialNumber(buffer);
         M message = decodeInternal(buffer, phoneNumber);
-        skipCheckCode(buffer);
+        skipRemaining(buffer);
         return message;
     }
 
@@ -36,7 +35,7 @@ public abstract class JT808MessageDecoder<M> {
         buffer.skipBytes(SERIAL_NUMBER_BYTES);
     }
 
-    private void skipCheckCode(ByteBuf buffer) {
-        buffer.skipBytes(CHECK_CODE_BYTES);
+    private void skipRemaining(ByteBuf buffer) {
+        buffer.readerIndex(buffer.writerIndex());
     }
 }
