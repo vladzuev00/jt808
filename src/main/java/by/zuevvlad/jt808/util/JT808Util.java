@@ -45,7 +45,7 @@ public class JT808Util {
         if (bs.length != 6 && bs.length != 7) {
             return "0000-00-00 00:00:00";
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int i = 0;
         if (bs.length == 6) {
             sb.append("20");
