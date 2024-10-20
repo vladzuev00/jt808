@@ -9,8 +9,8 @@ import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static java.time.Instant.parse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class JT808LocationMessageDecoderTest {
-    private final JT808LocationMessageDecoder decoder = new JT808LocationMessageDecoder();
+public final class JT808SingleLocationMessageDecoderTest {
+    private final JT808SingleLocationMessageDecoder decoder = new JT808SingleLocationMessageDecoder();
 
     @Test
     public void bufferShouldBeDecodedInternally() {
