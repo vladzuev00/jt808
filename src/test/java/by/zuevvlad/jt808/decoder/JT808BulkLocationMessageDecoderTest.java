@@ -20,7 +20,7 @@ public final class JT808BulkLocationMessageDecoderTest {
     }
 
     @Test
-    public void firstLocationShouldBeSkipped() {
+    public void bufferShouldBeSkippedUntilFirstLocation() {
         ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("010001000100"));
 
         decoder.skipUntilFirstLocation(givenBuffer);

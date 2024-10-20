@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public final class JT808SingleLocationMessageDecoder extends JT808LocationMessageDecoder {
+    static final int LOCATION_COUNT = 1;
     private static final short MESSAGE_ID = 512;
 
     public JT808SingleLocationMessageDecoder() {
@@ -13,7 +14,7 @@ public final class JT808SingleLocationMessageDecoder extends JT808LocationMessag
 
     @Override
     protected int decodeLocationCount(ByteBuf buffer) {
-        return 1;
+        return LOCATION_COUNT;
     }
 
     @Override
