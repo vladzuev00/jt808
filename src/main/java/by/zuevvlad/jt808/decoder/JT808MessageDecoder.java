@@ -17,9 +17,7 @@ public abstract class JT808MessageDecoder<M> {
         skipBodyProperties(buffer);
         String phoneNumber = decodePhoneNumber(buffer);
         skipSerialNumber(buffer);
-        M message = decodeInternal(buffer, phoneNumber);
-        skipRemaining(buffer);
-        return message;
+        return decodeInternal(buffer, phoneNumber);
     }
 
     protected abstract M decodeInternal(ByteBuf buffer, String phoneNumber);
@@ -30,9 +28,5 @@ public abstract class JT808MessageDecoder<M> {
 
     private void skipSerialNumber(ByteBuf buffer) {
         buffer.skipBytes(Short.BYTES);
-    }
-
-    private void skipRemaining(ByteBuf buffer) {
-        buffer.readerIndex(buffer.writerIndex());
     }
 }

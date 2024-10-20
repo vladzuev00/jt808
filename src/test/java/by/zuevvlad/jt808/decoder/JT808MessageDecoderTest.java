@@ -39,8 +39,6 @@ public final class JT808MessageDecoderTest {
             TestJT808Message actual = decoder.decode(givenBuffer);
             TestJT808Message expected = new TestJT808Message(givenPhoneNumber, (short) 55);
             assertEquals(expected, actual);
-
-            assertEquals(0, givenBuffer.readableBytes());
         }
     }
 
