@@ -5,10 +5,11 @@ import by.zuevvlad.jt808.model.Location;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static java.time.Instant.parse;
-import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class JT808LocationMessageDecoderTest {
@@ -16,12 +17,20 @@ public final class JT808LocationMessageDecoderTest {
 
     @Test
     public void bufferShouldBeDecodedInternally() {
-        ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("00010100420001000000000001015881C906CA8E0500000000000023072707091430011F31010051080000000000000000560231005708000200000000000063020000FD020026"));
+        ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("00020100420001000000000001015881C906CA8E0500000000000023072707091430011F31010051080000000000000000560231005708000200000000000063020000FD02002600420001000000000001015881C906CA8E0500000000000023072707091430011F31010051080000000000000000560231005708000200000000000063020000FD020026"));
         String givenPhoneNumber = "";
 
         JT808LocationMessage actual = decoder.decodeInternal(givenBuffer, givenPhoneNumber);
         JT808LocationMessage expected = new JT808LocationMessage(
-                singletonList(
+                List.of(
+                        new Location(
+                                parse("2023-07-27T07:09:14Z"),
+                                22.577608F,
+                                11.393793F,
+                                (short) 0,
+                                (short) 0,
+                                (short) 0
+                        ),
                         new Location(
                                 parse("2023-07-27T07:09:14Z"),
                                 22.577608F,
