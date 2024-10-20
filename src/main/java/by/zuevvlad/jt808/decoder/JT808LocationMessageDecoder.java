@@ -30,7 +30,10 @@ public abstract class JT808LocationMessageDecoder extends JT808MessageDecoder<JT
 
     protected abstract void skipToFirstLocation(ByteBuf buffer);
 
+    protected abstract void skipLocationPrefix(ByteBuf buffer);
+
     private Location decodeLocation(ByteBuf buffer) {
+        skipLocationPrefix(buffer);
         skipAlarmSign(buffer);
         skipStatus(buffer);
         float latitude = decodeLatitude(buffer);

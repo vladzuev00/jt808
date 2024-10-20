@@ -58,6 +58,21 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                 Arguments.of(
                         "7e000200000072610190040378ff7e",
                         new JT808HeartBeatMessage()
+                ),
+                Arguments.of(
+                        "7e07040047070061952865004a00010100420001000000000001015881c906ca8e0500000000000023072707091430011f31010051080000000000000000560231005708000200000000000063020000fd020026107e",
+                        new JT808LocationMessage(
+                                singletonList(
+                                        new Location(
+                                                parse("2023-07-27T07:09:14Z"),
+                                                22.577608F,
+                                                11.393793F,
+                                                (short) 0,
+                                                (short) 0,
+                                                (short) 0
+                                        )
+                                )
+                        )
                 )
         );
     }

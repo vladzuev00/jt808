@@ -20,4 +20,9 @@ public final class JT808SingleLocationMessageDecoder extends JT808LocationMessag
     protected void skipToFirstLocation(ByteBuf buffer) {
 
     }
+
+    @Override
+    protected void skipLocationPrefix(ByteBuf buffer) {
+
+    }
 }
