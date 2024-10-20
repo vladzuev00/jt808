@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 
+//TODO: refactor and test
 public class JT808Util {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
