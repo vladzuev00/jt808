@@ -18,11 +18,11 @@ public final class JT808BulkLocationMessageDecoder extends JT808LocationMessageD
 
     @Override
     protected void skipToFirstLocation(ByteBuf buffer) {
-        buffer.skipBytes(1);
+        buffer.skipBytes(Byte.BYTES);
     }
 
     @Override
     protected void skipLocationPrefix(ByteBuf buffer) {
-        buffer.skipBytes(2);
+        buffer.skipBytes(Short.BYTES);
     }
 }
