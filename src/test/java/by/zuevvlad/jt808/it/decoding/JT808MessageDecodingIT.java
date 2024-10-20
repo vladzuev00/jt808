@@ -2,6 +2,7 @@ package by.zuevvlad.jt808.it.decoding;
 
 import by.zuevvlad.jt808.base.AbstractSpringBootTest;
 import by.zuevvlad.jt808.decoder.JT808MessagesDecoder;
+import by.zuevvlad.jt808.model.JT808HeartBeatMessage;
 import by.zuevvlad.jt808.model.JT808LocationMessage;
 import by.zuevvlad.jt808.model.JT808RegistrationMessage;
 import io.netty.buffer.ByteBuf;
@@ -47,6 +48,10 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                                 (short) 0,
                                 (short) 0
                         )
+                ),
+                Arguments.of(
+                        "7e000200000072610190040378ff7e",
+                        new JT808HeartBeatMessage()
                 )
         );
     }
