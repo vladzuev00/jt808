@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public final class JT808MessagesDecoder {
-    private static final int IDENTIFICATION_BYTE_COUNT = 1;
+    static final int IDENTIFICATION_BYTE_COUNT = 1;
 
     private final List<JT808MessageDecoder<?>> decoders;
 
