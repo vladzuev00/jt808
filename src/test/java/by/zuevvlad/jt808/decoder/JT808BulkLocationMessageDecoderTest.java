@@ -29,4 +29,15 @@ public final class JT808BulkLocationMessageDecoderTest {
         int expected = Byte.BYTES;
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void locationPrefixShouldBeSkipped() {
+        ByteBuf givenBuffer = wrappedBuffer(decodeHexDump("010001000100"));
+
+        decoder.skipLocationPrefix(givenBuffer);
+
+        int actual = givenBuffer.readerIndex();
+        int expected = Short.BYTES;
+        assertEquals(expected, actual);
+    }
 }
