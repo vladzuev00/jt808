@@ -5,6 +5,7 @@ import by.zuevvlad.jt808.decoder.JT808MessagesDecoder;
 import by.zuevvlad.jt808.model.JT808HeartBeatMessage;
 import by.zuevvlad.jt808.model.JT808LocationMessage;
 import by.zuevvlad.jt808.model.JT808RegistrationMessage;
+import by.zuevvlad.jt808.model.Location;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,6 +17,7 @@ import java.util.stream.Stream;
 import static io.netty.buffer.ByteBufUtil.decodeHexDump;
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 import static java.time.Instant.parse;
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
@@ -41,12 +43,16 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                 Arguments.of(
                         "7e0200004207006195286500520001000000000001015881c906ca8e0500000000000023072707091430011f31010051080000000000000000560231005708000200000000000063020000fd020026157e",
                         new JT808LocationMessage(
-                                parse("2023-07-27T07:09:14Z"),
-                                22.577608F,
-                                11.393793F,
-                                (short) 0,
-                                (short) 0,
-                                (short) 0
+                                singletonList(
+                                        new Location(
+                                                parse("2023-07-27T07:09:14Z"),
+                                                22.577608F,
+                                                11.393793F,
+                                                (short) 0,
+                                                (short) 0,
+                                                (short) 0
+                                        )
+                                )
                         )
                 ),
                 Arguments.of(

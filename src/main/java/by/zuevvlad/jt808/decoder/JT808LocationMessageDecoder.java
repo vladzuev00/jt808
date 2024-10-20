@@ -31,6 +31,8 @@ public abstract class JT808LocationMessageDecoder extends JT808MessageDecoder<JT
     protected abstract void skipToFirstLocation(ByteBuf buffer);
 
     private Location decodeLocation(ByteBuf buffer) {
+        skipAlarmSign(buffer);
+        skipStatus(buffer);
         float latitude = decodeLatitude(buffer);
         float longitude = decodeLongitude(buffer);
         short altitude = decodeAltitude(buffer);
@@ -38,6 +40,14 @@ public abstract class JT808LocationMessageDecoder extends JT808MessageDecoder<JT
         short course = decodeCourse(buffer);
         Instant dateTime = decodeDateTime(buffer);
         return new Location(dateTime, latitude, longitude, altitude, speed, course);
+    }
+
+    private void skipAlarmSign(ByteBuf buffer) {
+        buffer.skipBytes(Integer.BYTES);
+    }
+
+    private void skipStatus(ByteBuf buffer) {
+        buffer.skipBytes(Integer.BYTES);
     }
 
     private short decodeAltitude(ByteBuf buffer) {
