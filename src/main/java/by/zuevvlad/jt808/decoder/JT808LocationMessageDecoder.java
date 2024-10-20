@@ -21,7 +21,7 @@ public abstract class JT808LocationMessageDecoder extends JT808MessageDecoder<JT
     @Override
     protected final JT808LocationMessage decodeInternal(ByteBuf buffer, String phoneNumber) {
         int locationCount = decodeLocationCount(buffer);
-        skipToFirstLocation(buffer);
+        skipUntilFirstLocation(buffer);
         return range(0, locationCount)
                 .mapToObj(i -> decodeLocation(buffer))
                 .collect(collectingAndThen(toList(), JT808LocationMessage::new));
@@ -29,7 +29,7 @@ public abstract class JT808LocationMessageDecoder extends JT808MessageDecoder<JT
 
     protected abstract int decodeLocationCount(ByteBuf buffer);
 
-    protected abstract void skipToFirstLocation(ByteBuf buffer);
+    protected abstract void skipUntilFirstLocation(ByteBuf buffer);
 
     protected abstract void skipLocationPrefix(ByteBuf buffer);
 

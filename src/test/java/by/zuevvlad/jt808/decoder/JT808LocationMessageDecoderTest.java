@@ -57,7 +57,7 @@ public final class JT808LocationMessageDecoderTest {
         }
 
         @Override
-        protected void skipToFirstLocation(ByteBuf buffer) {
+        protected void skipUntilFirstLocation(ByteBuf buffer) {
             buffer.skipBytes(Byte.BYTES);
         }
 
