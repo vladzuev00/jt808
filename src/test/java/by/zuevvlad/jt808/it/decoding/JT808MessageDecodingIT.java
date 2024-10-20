@@ -2,10 +2,7 @@ package by.zuevvlad.jt808.it.decoding;
 
 import by.zuevvlad.jt808.base.AbstractSpringBootTest;
 import by.zuevvlad.jt808.decoder.JT808MessagesDecoder;
-import by.zuevvlad.jt808.model.JT808HeartBeatMessage;
-import by.zuevvlad.jt808.model.JT808LocationMessage;
-import by.zuevvlad.jt808.model.JT808RegistrationMessage;
-import by.zuevvlad.jt808.model.Location;
+import by.zuevvlad.jt808.model.*;
 import io.netty.buffer.ByteBuf;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -73,6 +70,10 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                                         )
                                 )
                         )
+                ),
+                Arguments.of(
+                        "7e0102000c07006195286504fc3037303036313935323836354c7e",
+                        new JT808AuthenticationMessage()
                 )
         );
     }
