@@ -38,6 +38,10 @@ public final class JT808MessageDecodingIT extends AbstractSpringBootTest {
                         new JT808RegistrationMessage("070061952865", "86977")
                 ),
                 Arguments.of(
+                        "7e0100002c0182700570781022001f00000000000000434152564953204d442d34343453440000000000303035373037380142313233343536bc7e",
+                        new JT808RegistrationMessage("018270057078", "")
+                ),
+                Arguments.of(
                         "7e0200004207006195286500520001000000000001015881c906ca8e0500000000000023072707091430011f31010051080000000000000000560231005708000200000000000063020000fd020026157e",
                         new JT808LocationMessage(
                                 singletonList(

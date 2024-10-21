@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-import static java.nio.charset.StandardCharsets.US_ASCII;
+import static java.nio.charset.Charset.defaultCharset;
 
 //TODO: refactor and test
 public class JT808Util {
@@ -20,7 +20,7 @@ public class JT808Util {
     }
 
     public static String decodeString(ByteBuf buffer, int byteCount) {
-        return buffer.readCharSequence(byteCount, US_ASCII).toString();
+        return buffer.readCharSequence(byteCount, defaultCharset()).toString().trim();
     }
 
     public static String bcd2String(byte[] bytes) {
